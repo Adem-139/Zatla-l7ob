@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Destroyed by Zatla L7obb</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Arial Black', sans-serif;
+  }
+
+  #bg-video {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    z-index: 0;
+  }
+
+  .bg-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 1;
+  }
+
+  .title {
+    position: relative;
+    z-index: 2;
+    font-size: clamp(2rem, 5vw, 4.5rem);
+    font-weight: 900;
+    text-align: center;
+    color: #fff;
+    text-shadow:
+      0 0 10px #fff,
+      0 0 25px #4d1500,
+      0 0 50px #4e1500,
+      0 0 80px #4b0a00,
+      2px 2px 0 #000;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    animation: flicker 3s infinite alternate;
+  }
+
+  @keyframes flicker {
+    0%   { text-shadow: 0 0 10px #fff, 0 0 25px #520000, 0 0 50px #520000, 0 0 80px #520000, 2px 2px 0 #000; }
+    50%  { text-shadow: 0 0 6px #fff, 0 0 15px #540000, 0 0 35px #520000, 0 0 60px #520000, 2px 2px 0 #000; }
+    100% { text-shadow: 0 0 12px #fff, 0 0 30px #480000, 0 0 60px #660e00, 0 0 100px #2a0000, 2px 2px 0 #000; }
+  }
+
+  .card-wrapper {
+    position: relative;
+    z-index: 2;
+  }
+
+  .fire-ring {
+    position: absolute;
+    inset: -18px;
+    border-radius: 20px;
+    z-index: -1;
+    background: transparent;
+    animation: burn 1.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes burn {
+    0%   { box-shadow: 0 0 15px 6px rgba(70, 1, 1, 0.9), 0 0 35px 12px rgba(70, 1, 1, 0.9), 0 0 60px 20px rgba(255, 255, 255, 0.753), inset 0 0 20px rgba(255,80,0,0.2); }
+    50%  { box-shadow: 0 0 20px 10px rgba(70, 1, 1, 0.9), 0 0 45px 18px rgba(70, 1, 1, 0.9), 0 0 80px 30px rgba(255, 255, 255, 0.73), inset 0 0 30px rgba(255,100,0,0.3); }
+    100% { box-shadow: 0 0 10px 4px rgba(70, 1, 1, 0.9), 0 0 28px 8px rgba(70, 1, 1, 0.9), 0 0 50px 15px rgba(255, 255, 255, 0.795), inset 0 0 15px rgba(255,60,0,0.15); }
+  }
+
+  .card {
+    background: #000;
+    border: 2px solid rgba(83, 0, 0, 0.5);
+    border-radius: 16px;
+    padding: 16px;
+    width: min(340px, 80vw);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .card img {
+    width: 100%;
+    border-radius: 10px;
+    display: block;
+  }
+
+  #yt-player {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<video id="bg-video" autoplay loop muted playsinline>
+  <source src="stretched_video_1920x1080_noaudio.mp4" type="video/mp4">
+</video>
+<div class="bg-overlay"></div>
+
+<div class="title">Destroyed by Zatla L7obb</div>
+
+<div class="card-wrapper">
+  <div class="fire-ring"></div>
+  <div class="card">
+    <img src="1776117726533_image.png" alt="profile">
+  </div>
+</div>
+
+<div id="yt-player"></div>
+
+<script>
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.head.appendChild(tag);
+
+  var player;
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('yt-player', {
+      height: '1',
+      width: '1',
+      videoId: 'UB7bxRNswo0',
+      playerVars: { autoplay: 1, mute: 0, loop: 1, playlist: 'UB7bxRNswo0' },
+      events: {
+        onReady: function(e) { e.target.playVideo(); }
+      }
+    });
+  }
+
+  document.body.addEventListener('click', function() {
+    if (player && player.getPlayerState && player.getPlayerState() !== 1) {
+      player.playVideo();
+    }
+  }, { once: true });
+</script>
+</body>
+</html>
